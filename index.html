@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task Manager</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+<h2>Task Manager</h2>
+
+<button onclick="getAll()">Get All</button>
+<button onclick="getCompleted()">Get Completed</button>
+<button onclick="addTask()">Add Task</button>
+<button onclick="markCompleted()">Mark Task 1 Completed</button>
+
+<script>
+
+const BASE_URL = "http://localhost:3000";
+
+function getAll() {
+    axios.get(`${BASE_URL}/tasks`)
+        .then(res => console.log(res.data))
+        .catch(err => console.log(err.response.data));
+}
+
+function getCompleted() {
+    axios.get(`${BASE_URL}/tasks`, {
+        params: { completed: true }
+    })
+    .then(res => console.log(res.data))
+    .catch(err => console.log(err.response.data));
+}
+
+function addTask() {
+    axios.post(`${BASE_URL}/tasks`, {
+        title: "New Task"
+    })
+    .then(res => console.log(res.data))
+    .catch(err => console.log(err.response.data));
+}
+
+function markCompleted() {
+    axios.put(`${BASE_URL}/tasks/1`, {
+        completed: true
+    })
+    .then(res => console.log(res.data))
+    .catch(err => console.log(err.response.data));
+}
+
+</script>
+
+</body>
+</html>
